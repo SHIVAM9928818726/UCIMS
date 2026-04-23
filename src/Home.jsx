@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { Home as HomeIcon, School, BarChart2, Info, LogOut, Star, Building2, Banknote, Trophy, MapPin, Phone, Mail } from "lucide-react";
 import CollegeCard from "./CollegeCard";
 import "./Home.css";
 
@@ -204,33 +205,35 @@ export default function Home() {
         </Link>
         <ul className="nav-links">
           <li>
-            <Link to="/home" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              🏠 Home
+            <Link to="/home" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <HomeIcon size={18} /> Home
             </Link>
           </li>
           {/* <li>
             <a href="#colleges" onClick={(e) => { e.preventDefault(); scrollToSection('colleges'); }}>
-              🏫 Colleges
+              <School size={18} /> Colleges
             </a>
           </li> */}
           <li>
-            <Link to="http://localhost:5173/all-colleges" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              🏫 Colleges
+            <Link to="http://localhost:5173/all-colleges" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <School size={18} /> Colleges
             </Link>
 
           </li>
           <li>
-            <a href="#compare" onClick={(e) => { e.preventDefault(); scrollToSection('compare'); }}>
-              📊 Compare
+            <a href="#compare" onClick={(e) => { e.preventDefault(); scrollToSection('compare'); }} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <BarChart2 size={18} /> Compare
             </a>
           </li>
           <li>
-            <Link to="/about">
-              ℹ️ About
+            <Link to="/about" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Info size={18} /> About
             </Link>
           </li>
         </ul>
-        <Link to="/" className="admin-login-btn">Logout</Link>
+        <div className="navbar-right-actions">
+          <Link to="/" className="nav-logout-btn" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><LogOut size={16} /> Logout</Link>
+        </div>
       </nav>
 
       {/* Hero Section */}
@@ -277,7 +280,7 @@ export default function Home() {
 
               {/* Next Line: Error message */}
               {error && (
-                <p style={{ color: "red", marginTop: "6px", fontSize: "14px", display: "flex", justifyContent: "center", alignItems: "center", gap: "8px", fontSize: "15px", fontWeight: "500" }}>
+                <p style={{ color: "red", marginTop: "6px", display: "flex", justifyContent: "center", alignItems: "center", gap: "8px", fontSize: "15px", fontWeight: "500" }}>
                   {error}
                 </p>
               )}
@@ -306,10 +309,10 @@ export default function Home() {
           </div>
 
           <div className="quick-filters">
-            <div className="quick-filter-card" onClick={() => handleQuickFilter('tier', 'Tier 1')}>✨ Tier 1 Colleges</div>
-            <div className="quick-filter-card" onClick={() => handleQuickFilter('college_type', 'Government')}>🏛️ Government Colleges</div>
-            <div className="quick-filter-card" onClick={() => handleQuickFilter('sort', 'ug_fee')}>💸 Low Fees</div>
-            <div className="quick-filter-card" onClick={() => handleQuickFilter('sort', 'reality_score')}>🏆 High Reality Score</div>
+            <div className="quick-filter-card" onClick={() => handleQuickFilter('tier', 'Tier 1')} style={{display: 'flex', alignItems: 'center', gap: '8px'}}><Star size={18} color="#f59e0b" /> Tier 1 Colleges</div>
+            <div className="quick-filter-card" onClick={() => handleQuickFilter('college_type', 'Government')} style={{display: 'flex', alignItems: 'center', gap: '8px'}}><Building2 size={18} color="#3b82f6" /> Government Colleges</div>
+            <div className="quick-filter-card" onClick={() => handleQuickFilter('sort', 'ug_fee')} style={{display: 'flex', alignItems: 'center', gap: '8px'}}><Banknote size={18} color="#10b981" /> Low Fees</div>
+            <div className="quick-filter-card" onClick={() => handleQuickFilter('sort', 'reality_score')} style={{display: 'flex', alignItems: 'center', gap: '8px'}}><Trophy size={18} color="#f59e0b" /> High Reality Score</div>
           </div>
         </div>
       </section>
@@ -398,7 +401,7 @@ export default function Home() {
                 <tr><td>UG Course</td><td>{compareData.col1.UG_Course || "Info Unavailable"}</td><td>{compareData.col2.UG_Course || "Info Unavailable"}</td></tr>
                 <tr><td>Avg Package</td><td style={{ color: "lightskyblue", fontWeight: '600' }}>{formatValue(compareData.col1.Avg_package, 'package')}</td><td style={{ color: "lightskyblue", fontWeight: '600' }}>{formatValue(compareData.col2.Avg_package, 'package')}</td></tr>
                 <tr><td>Highest Package</td><td style={{ color: "#10B981", fontWeight: '600' }}>{formatValue(compareData.col1.Highest_package, 'package')}</td><td style={{ color: "#10B981", fontWeight: '600' }}>{formatValue(compareData.col2.Highest_package, 'package')}</td></tr>
-                <tr><td style={{ fontWeight: 'bold' }}>Reality Score</td><td style={{ color: "gold" }}>⭐ {compareData.col1.Reality_score}/10</td><td style={{ color: "gold" }}>⭐ {compareData.col2.Reality_score}/10</td></tr>
+                <tr><td style={{ fontWeight: 'bold' }}>Reality Score</td><td style={{ color: "gold" }}><Star size={14} fill="gold" strokeWidth={1} style={{ verticalAlign: 'middle' }} /> {compareData.col1.Reality_score}/10</td><td style={{ color: "gold" }}><Star size={14} fill="gold" strokeWidth={1} style={{ verticalAlign: 'middle' }} /> {compareData.col2.Reality_score}/10</td></tr>
               </tbody>
             </table>
           </div>
@@ -417,9 +420,9 @@ export default function Home() {
           <div className="footer-col">
             <h3>Contact Details</h3>
             <div className="contact-info">
-              <p>📍 Agra Road, Jaipur, Rajasthan, 302031, India</p>
-              <p>📞 +91 8400571641 , +91 9838916506</p>
-              <p>✉️ gaurshivam775@gmail.com</p>
+              <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><MapPin size={18} /> Agra Road, Jaipur, Rajasthan, 302031, India</p>
+              <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Phone size={18} /> +91 8400571641 , +91 9838916506</p>
+              <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Mail size={18} /> gaurshivam775@gmail.com</p>
             </div>
           </div>
         </div>

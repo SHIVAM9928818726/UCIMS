@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { ShieldCheck, Lock, LogIn, Mail, LogOut, User } from "lucide-react";
+import "./Login.css";
 
 function Login() {
   const [user, setUser] = useState(null);
@@ -49,7 +51,8 @@ function Login() {
           };
           setUser(adminData);
           localStorage.setItem("user", JSON.stringify(adminData));
-          navigate("/home");
+          localStorage.setItem("adminLoggedIn", "true");
+          navigate("/user-admin");
         } else {
           alert("Invalid Admin Credentials!");
         }
@@ -78,98 +81,110 @@ function Login() {
   };
 
   return (
-    <div className="page-container" style={styles.body}>
-      <div style={styles.box}>
+    <div className="login-page-container">
+      {/* Background Particles */}
+      <div className="particles">
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+      </div>
+
+      <div className="login-box">
         {!user ? (
           <>
-            <div style={styles.toggleContainer}>
+            <div className="login-toggle-container">
               <button
                 type="button"
-                style={!isAdminMode ? styles.activeToggle : styles.inactiveToggle}
+                className={`login-toggle-btn ${!isAdminMode ? "active" : ""}`}
                 onClick={() => setIsAdminMode(false)}
               >Student</button>
               <button
                 type="button"
-                style={isAdminMode ? styles.activeToggle : styles.inactiveToggle}
+                className={`login-toggle-btn ${isAdminMode ? "active" : ""}`}
                 onClick={() => setIsAdminMode(true)}
               >Admin</button>
             </div>
 
-            <h2 style={styles.title}>{isAdminMode ? "🛡️ Admin Login" : "🔐 Login with Gmail"}</h2>
+            <h2 className="login-title" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              {isAdminMode ? <ShieldCheck size={28} color="#3b82f6" /> : <Lock size={28} color="#3b82f6" />}
+              {isAdminMode ? "Admin Login" : "Login"}
+            </h2>
 
             {/* Manual Login */}
-            <form onSubmit={handleLogin} style={{ marginBottom: "15px" }}>
-              <input
-                type="text"
-                name="email"
-                placeholder={isAdminMode ? "Enter Admin Email" : "Gmail"}
-                value={credentials.email}
-                onChange={handleChange}
-                style={styles.input}
-              />
+            <form onSubmit={handleLogin} className="login-form">
+              <div className="login-input-group">
+                <input
+                  type="text"
+                  name="email"
+                  className="login-input"
+                  placeholder={isAdminMode ? "Enter Admin Email" : "Enter Gmail Address"}
+                  value={credentials.email}
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
 
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={credentials.password}
-                onChange={handleChange}
-                style={styles.input}
-              />
+                <input
+                  type="password"
+                  name="password"
+                  className="login-input"
+                  placeholder="Password"
+                  value={credentials.password}
+                  onChange={handleChange}
+                />
+              </div>
 
-              {errormsg && <p style={{ color: "red" }}>{errormsg}</p>}
+              {errormsg && <p className="login-error-msg">{errormsg}</p>}
 
-              <br />
-
-              <button type="submit" disabled={isLoading} style={{ ...styles.loginBtn, opacity: isLoading ? 0.7 : 1, cursor: isLoading ? "not-allowed" : "pointer" }}>
-                {isLoading ? "Logging in..." : "Login"}
+              <button 
+                type="submit" 
+                disabled={isLoading} 
+                className="login-main-btn"
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+              >
+                {isLoading ? "Logging in..." : <><LogIn size={18} /> Continue to Dashboard</>}
               </button>
             </form>
 
             {!isAdminMode && (
               <>
-                <hr style={{ margin: "20px 0" }} />
-
-                {/* Google Login */}
-                <GoogleLogin
-                  onSuccess={(credentialResponse) => {
-                    const decoded = jwtDecode(credentialResponse.credential);
-
-                    setUser(decoded);
-                    localStorage.setItem("user", JSON.stringify(decoded));
-
-                    navigate("/home");
-                  }}
-                  onError={() => {
-                    alert("Google Login Failed!");
-                  }}
-                />
+                <hr className="login-divider" />
+                {/* Google Login Center */}
+                <div className="google-login-center">
+                  <GoogleLogin
+                    onSuccess={(credentialResponse) => {
+                      const decoded = jwtDecode(credentialResponse.credential);
+                      setUser(decoded);
+                      localStorage.setItem("user", JSON.stringify(decoded));
+                      navigate("/home");
+                    }}
+                    onError={() => {
+                      alert("Google Login Failed!");
+                    }}
+                  />
+                </div>
               </>
             )}
           </>
         ) : (
           <>
-            <h2 style={styles.heading}>🎓 Welcome</h2>
+            <h2 className="login-heading" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              <User size={28} color="#3b82f6" /> Welcome Back
+            </h2>
 
             <img
-              src={
-                user.picture ||
-                "https://cdn-icons-png.flaticon.com/512/281/281769.png"
-              }
+              src={user.picture || "https://cdn-icons-png.flaticon.com/512/281/281769.png"}
               alt="profile"
-              style={styles.img}
+              className="profile-image"
             />
 
-            <p style={styles.text}>
-              <b>Name:</b> {user.name}
-            </p>
+            <div className="profile-info">
+              <p><b>Name:</b> {user.name}</p>
+              <p><b>Email:</b> {user.email}</p>
+            </div>
 
-            <p style={styles.text}>
-              <b>Email:</b> {user.email}
-            </p>
-
-            <button style={styles.logoutBtn} onClick={logout}>
-              Logout
+            <button className="logout-main-btn" onClick={logout} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <LogOut size={18} /> Secure Logout
             </button>
           </>
         )}
@@ -179,120 +194,3 @@ function Login() {
 }
 
 export default Login;
-
-const styles = {
-  body: {
-    fontFamily: "Segoe UI, sans-serif",
-    backgroundImage:
-      'url("https://www.gits.ac.in/wp-content/uploads/2016/01/blurred.jpg")',
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    minHeight: "100vh",
-    width: "100vw",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  box: {
-    background: "rgba(255,255,255,0.95)",
-    padding: "30px",
-    borderRadius: "15px",
-    width: "360px",
-    textAlign: "center",
-    boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
-  },
-
-  title: {
-    background: "linear-gradient(90deg, #6b08cd, #a2acd8)",
-    padding: "10px",
-    borderRadius: "8px",
-    color: "white",
-    marginBottom: "20px",
-    fontSize: "20px",
-  },
-
-  input: {
-    width: "80%",
-    padding: "12px",
-    margin: "8px 0",
-    borderRadius: "8px",
-    border: "1px solid #6b08cd",
-    fontSize: "14px",
-    outline: "none",
-    boxShadow: "0 2px 5px rgba(107, 8, 205, 0.2)",
-  },
-
-  loginBtn: {
-    width: "60%",
-    padding: "12px",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontSize: "15px",
-    fontWeight: "bold",
-    background: "#6b08cd",
-    color: "white",
-  },
-
-  heading: {
-    marginBottom: "20px",
-    fontSize: "22px",
-  },
-
-  text: {
-    marginTop: "10px",
-    fontSize: "14px",
-    color: "#333",
-  },
-
-  img: {
-    width: "90px",
-    height: "90px",
-    borderRadius: "50%",
-    marginTop: "10px",
-    border: "2px solid #ccc",
-  },
-
-  logoutBtn: {
-    width: "100%",
-    padding: "12px",
-    marginTop: "20px",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontSize: "15px",
-    fontWeight: "bold",
-    background: "#ff4b5c",
-    color: "white",
-  },
-  toggleContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: "20px",
-    background: "#f0f0f0",
-    borderRadius: "8px",
-    overflow: "hidden"
-  },
-  activeToggle: {
-    flex: 1,
-    padding: "10px",
-    background: "#6b08cd",
-    color: "white",
-    border: "none",
-    fontWeight: "bold",
-    cursor: "pointer",
-    transition: "0.3s"
-  },
-  inactiveToggle: {
-    flex: 1,
-    padding: "10px",
-    background: "transparent",
-    color: "#555",
-    border: "none",
-    fontWeight: "bold",
-    cursor: "pointer",
-    transition: "0.3s"
-  }
-};

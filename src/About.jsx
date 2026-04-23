@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Home as HomeIcon, School, GraduationCap, ArrowLeft } from "lucide-react";
 import "./About.css";
 
 const About = () => {
@@ -15,10 +16,20 @@ const About = () => {
          <img src="data:image/svg+xml;utf8,%3Csvg%20width%3D%2245%22%20height%3D%2245%22%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%3C!--%20Outer%20Circle%20--%3E%0A%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20stroke%3D%22%232563eb%22%20stroke-width%3D%224%22%20fill%3D%22%230f172a%22%3E%3C%2Fcircle%3E%0A%0A%20%20%3C!--%20Graduation%20Cap%20--%3E%0A%20%20%3Cpath%20d%3D%22M16%2024L32%2016L48%2024L32%2032L16%2024Z%22%20fill%3D%22%2338bdf8%22%3E%3C%2Fpath%3E%0A%20%20%3Cpath%20d%3D%22M22%2028V36C22%2036%2028%2040%2032%2040C36%2040%2042%2036%2042%2036V28L32%2034L22%2028Z%22%20fill%3D%22%232563eb%22%3E%3C%2Fpath%3E%0A%0A%20%20%3C!--%20Data%20Bars%20--%3E%0A%20%20%3Crect%20x%3D%2220%22%20y%3D%2244%22%20width%3D%226%22%20height%3D%2210%22%20fill%3D%22%2338bdf8%22%20rx%3D%222%22%3E%3C%2Frect%3E%0A%20%20%3Crect%20x%3D%2229%22%20y%3D%2240%22%20width%3D%226%22%20height%3D%2214%22%20fill%3D%22%232563eb%22%20rx%3D%222%22%3E%3C%2Frect%3E%0A%20%20%3Crect%20x%3D%2238%22%20y%3D%2246%22%20width%3D%226%22%20height%3D%228%22%20fill%3D%22%2338bdf8%22%20rx%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E" alt="ucims logo"></img> <span>About</span>
                  </Link>
         <ul className="nav-links">
-          <li><Link to="/home">🏠 Home</Link></li>
-          <li><Link to="/home#colleges">🏫 Colleges</Link></li>
+          <li>
+            <Link to="/home" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <HomeIcon size={18} /> Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/home#colleges" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <School size={18} /> Colleges
+            </Link>
+          </li>
         </ul>
-        <Link to="/home" className="admin-login-btn">Back to Home</Link>
+        <Link to="/home" className="admin-login-btn" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <ArrowLeft size={18} /> Back to Home
+        </Link>
       </nav>
 
       <main className="about-container">

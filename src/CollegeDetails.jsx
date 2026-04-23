@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { Home as HomeIcon, MapPin, Star, Banknote, Briefcase, FileText, Award, Building, Phone } from "lucide-react";
 import { imageMapping, genericGalleryFallback } from "./imageMapping";
 import "./CollegeDetails.css";
 
@@ -126,8 +127,8 @@ export default function CollegeDetails() {
   return (
     <div className="page-container college-profile-page">
       {/* Floating Home Button */}
-      <button className="fab-home" onClick={() => navigate('/home')}>
-        🏠 Back to Home
+      <button className="fab-home" onClick={() => navigate('/home')} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <HomeIcon size={18} /> Back to Home
       </button>
 
       {/* Hero Image Gallery */}
@@ -156,7 +157,7 @@ export default function CollegeDetails() {
             {college.College_Type && <span className="badge type-badge">{college.College_Type}</span>}
           </div>
           <h1>{college.College_Name}</h1>
-          <p className="location-text">📍 {college.City}, {college.State}, India</p>
+          <p className="location-text" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}><MapPin size={18} /> {college.City}, {college.State}, India</p>
 
           <div className="header-ratings">
             <div className="rating-block">
@@ -166,7 +167,7 @@ export default function CollegeDetails() {
             </div>
             <div className="rating-block highlight-rating">
               <span className="rating-label"> Reality Score</span>
-              <span className="rating-number">⭐ {college.Reality_score} / 10</span>
+              <span className="rating-number" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Star fill="gold" size={20} strokeWidth={1} /> {college.Reality_score} / 10</span>
             </div>
           </div>
         </section>
@@ -177,7 +178,7 @@ export default function CollegeDetails() {
           <div className="main-column">
             {/* Fees & Courses */}
             <section className="profile-module shadow-card primary-border">
-              <h2 className="module-title">💰 Fees & Courses</h2>
+              <h2 className="module-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Banknote size={24} color="#2563eb" /> Fees & Courses</h2>
               <div className="financial-grid">
                 <div className="fin-box fin-ug">
                   <span className="fin-label">UG Fees</span>
@@ -198,7 +199,7 @@ export default function CollegeDetails() {
 
             {/* Placements */}
             <section className="profile-module shadow-card green-border">
-              <h2 className="module-title">📈 Placements</h2>
+              <h2 className="module-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Briefcase size={24} color="#10b981" /> Placements</h2>
               <div className="financial-grid">
                 <div className="fin-box fin-avg">
                   <span className="fin-label">Average Package</span>
@@ -217,7 +218,7 @@ export default function CollegeDetails() {
             
             {/* Admission Process / Cutoff */}
             <section className="profile-module shadow-card">
-              <h2 className="module-title">📝 Admission Overview</h2>
+              <h2 className="module-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><FileText size={24} color="#f59e0b" /> Admission Overview</h2>
               <p className="admission-text"><strong>General Eligibility & Cutoff:</strong> {cutoffNote}</p>
               <p className="admission-text"><strong>Total Intake:</strong> ~{mockSeats} Seats Approved</p>
             </section>
@@ -226,7 +227,7 @@ export default function CollegeDetails() {
           <div className="sidebar-column">
             {/* Ranking & Accreditation */}
             <section className="profile-module shadow-card side-module">
-              <h2 className="module-title">🏆 Accreditation & Ranking</h2>
+              <h2 className="module-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Award size={24} color="#8b5cf6" /> Accreditation & Ranking</h2>
               <ul className="info-list">
                 <li><strong>NIRF Rank:</strong> <span>#{mockNirf}</span></li>
                 <li><strong>NAAC Grade:</strong> <span className="highlight-tag naac">{mockNaac}</span></li>
@@ -237,7 +238,7 @@ export default function CollegeDetails() {
 
             {/* Facilities */}
             <section className="profile-module shadow-card side-module">
-              <h2 className="module-title">🏢 Facilities & Campus</h2>
+              <h2 className="module-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Building size={24} color="#0ea5e9" /> Facilities & Campus</h2>
               <ul className="info-list">
                 <li><strong>Campus Size:</strong> <span>{mockCampusSize}</span></li>
                 <li><strong>Hostel:</strong> <span>{mockHostel}</span></li>
@@ -248,7 +249,7 @@ export default function CollegeDetails() {
 
             {/* Contact Info */}
             <section className="profile-module shadow-card side-module dark-panel">
-              <h2 className="module-title text-white">📞 Contact Info</h2>
+              <h2 className="module-title text-white" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Phone size={24} color="#e0e7ff" /> Contact Info</h2>
               <div className="contact-details">
                 <p><strong>Official Website:</strong> <a href={`https://www.google.com/search?q=${encodeURIComponent(college.College_Name + " official website")}`} target="_blank" rel="noreferrer" className="website-link">Search Official Website ↗</a></p>
                 <p><strong>Address:</strong> {college.City}, {college.State}, India</p>

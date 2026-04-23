@@ -58,6 +58,40 @@ def init_db():
         
         conn.commit()
     
+    # Create the users table
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            role TEXT NOT NULL,
+            status TEXT NOT NULL,
+            joined TEXT NOT NULL,
+            lastLogin TEXT NOT NULL
+        )
+    ''')
+
+    # Check if we have users already
+    cursor.execute("SELECT COUNT(*) FROM users")
+    user_count = cursor.fetchone()[0]
+
+    if user_count == 0:
+        print("Inserting sample users into the database...")
+        sample_users = [
+            ("Shivam Gaur",    "gaurshivam775@gmail.com", "Admin",   "Active",  "2024-03-10", "Today"),
+            ("Rahul Sharma",   "rahul.s@gmail.com",       "Student", "Active",  "2024-02-15", "2 days ago"),
+            ("Priya Singh",    "priya.singh@gmail.com",   "Student", "Blocked", "2024-01-20", "1 week ago"),
+            ("Amit Kumar",     "amit.k@gmail.com",        "Student", "Active",  "2024-04-05", "Yesterday"),
+            ("Sneha Gupta",    "sneha.g@gmail.com",       "Admin",   "Active",  "2024-03-25", "3 hours ago"),
+            ("Vikram Yadav",   "vikram.y@gmail.com",      "Student", "Active",  "2024-04-10", "5 hours ago"),
+            ("Ananya Verma",   "ananya.v@gmail.com",      "Student", "Blocked", "2024-01-05", "2 weeks ago")
+        ]
+        cursor.executemany('''
+            INSERT INTO users (name, email, role, status, joined, lastLogin)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', sample_users)
+        conn.commit()
+
     conn.close()
     print("Database initialization complete.")
 

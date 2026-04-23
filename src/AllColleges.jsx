@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Home as HomeIcon, Search, AlertCircle, Award, Building2, ArrowDownUp } from "lucide-react";
 import CollegeCard from "./CollegeCard";
 import "./AllColleges.css";
 
@@ -87,8 +88,8 @@ export default function AllColleges() {
   return (
     <div className="page-container all-colleges-page">
       {/* Floating Action Button */}
-      <button className="fab-home" onClick={() => navigate("/home")}>
-        🏠 Home
+      <button className="fab-home" onClick={() => navigate("/home")} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <HomeIcon size={18} /> Home
       </button>
 
       {/* Header Section */}
@@ -109,14 +110,14 @@ export default function AllColleges() {
                 onChange={(e) => setSearchInput(e.target.value)}
                 className="main-search-input"
               />
-              <button type="submit" className="search-btn">
-                🔍 Search
+              <button type="submit" className="search-btn" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Search size={18} /> Search
               </button>
             </div>
             
             {showWarning && (
-              <div className="warning-message">
-                <span>🚨 Warning: Please select or enter search criteria properly.</span>
+              <div className="warning-message" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <AlertCircle size={16} color="red" /> <span style={{ color: "red" }}>Warning: Please select or enter search criteria properly.</span>
               </div>
             )}
           </form>
@@ -124,7 +125,7 @@ export default function AllColleges() {
           {/* Quick Filters Row */}
           <div className="filters-row">
             <div className="filter-item">
-              <label>📍 Tier</label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Award size={16} /> Tier</label>
               <select name="tier" value={filters.tier} onChange={handleDropdownChange}>
                 <option value="">All Tiers</option>
                 <option value="Tier 1">Tier 1</option>
@@ -134,7 +135,7 @@ export default function AllColleges() {
             </div>
 
             <div className="filter-item">
-              <label>🏛️ College Type</label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Building2 size={16} /> College Type</label>
               <select name="college_type" value={filters.college_type} onChange={handleDropdownChange}>
                 <option value="">All Types</option>
                 <option value="Government">Government</option>
@@ -143,7 +144,7 @@ export default function AllColleges() {
             </div>
 
             <div className="filter-item">
-              <label>📊 Fees Sorting</label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><ArrowDownUp size={16} /> Fees Sorting</label>
               <select name="sort" value={filters.sort} onChange={handleDropdownChange}>
                 <option value="">Sort By...</option>
                 <option value="ug_fee">Fees (Low to High)</option>

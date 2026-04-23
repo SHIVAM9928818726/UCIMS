@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { MapPin, Star, ArrowRight } from "lucide-react";
 
 export default function CollegeCard({ college }) {
   const [bgImage, setBgImage] = useState("");
@@ -147,13 +148,17 @@ export default function CollegeCard({ college }) {
         <div
           className="college-location"
           style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "6px",
             color: "#64748b",
             fontSize: "0.95rem",
             marginBottom: "1rem",
             fontWeight: "500",
           }}
         >
-          📍 {college.City}, {college.State}
+          <MapPin size={16} /> {college.City}, {college.State}
         </div>
 
         {college.College_Type && (
@@ -213,12 +218,15 @@ export default function CollegeCard({ college }) {
               </span>
               <span
                 style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
                   color: "#f47b3fff",
                   fontWeight: "bold",
                   fontSize: "1.1rem",
                 }}
               >
-                ⭐ {college.Reality_score}/10
+                <Star size={16} fill="#f47b3fff" /> {college.Reality_score}/10
               </span>
             </div>
 
@@ -244,12 +252,15 @@ export default function CollegeCard({ college }) {
               </span>
               <span
                 style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
                   color: "#eab308",
                   fontWeight: "bold",
                   fontSize: "1.1rem",
                 }}
               >
-                ⭐ {college.User_Rating} / 5
+                <Star size={16} fill="#eab308" /> {college.User_Rating} / 5
               </span>
             </div>
           </div>
@@ -273,6 +284,10 @@ export default function CollegeCard({ college }) {
               textTransform: "uppercase",
               letterSpacing: "1px",
 
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
               boxShadow: isHover
                 ? "0 6px 12px rgba(37, 99, 235, 0.4)"
                 : "0 4px 6px -1px rgba(37, 99, 235, 0.2)",
@@ -286,7 +301,7 @@ export default function CollegeCard({ college }) {
               })
             }
           >
-            View Details
+            View Details <ArrowRight size={18} />
           </button>
         </div>
       </div>

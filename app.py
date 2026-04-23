@@ -5,7 +5,7 @@ import os                                  #os → handles file paths
 
 app = Flask(__name__) # creates flask app
 # Explicitly allow the origin to avoid "dead" connection issues
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, support_credentials=True)
+CORS(app)
 app.secret_key = 'ucims_super_secret_key'
 DATABASE = os.path.join(os.path.dirname(__file__), 'colleges.db')         #DATABASE stores the path of colleges.db
 
@@ -194,6 +194,55 @@ def rate_college(id):
     c.execute(query, (new_rating, id))
     db.commit()
     return jsonify({"success": True, "new_rating": new_rating})
+
+# --- USER MANAGEMENT API ---
+
+@app.route("/api/users")
+def get_users():
+    db = get_db()
+    c = db.cursor()
+    c.execute("SELECT * FROM users ORDER BY id DESC")
+    results = [dict(ix) for ix in c.fetchall()]
+    return jsonify(results)
+
+@app.route("/api/users", methods=["POST"])
+def add_user():
+    db = get_db()
+    c = db.cursor()
+    data = request.json
+    try:
+        c.execute('''
+            INSERT INTO users (name, email, role, status, joined, lastLogin)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (data['name'], data['email'], data['role'], data['status'], data['joined'], data['lastLogin']))
+        db.commit()
+        return jsonify({"success": True, "id": c.lastrowid})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 400
+
+@app.route("/api/users/<int:id>", methods=["DELETE"])
+def delete_user(id):
+    db = get_db()
+    c = db.cursor()
+    c.execute("DELETE FROM users WHERE id = ?", (id,))
+    db.commit()
+    return jsonify({"success": True})
+
+@app.route("/api/users/<int:id>/toggle-status", methods=["PATCH"])
+def toggle_user_status(id):
+    db = get_db()
+    c = db.cursor()
+    c.execute("SELECT status FROM users WHERE id = ?", (id,))
+    row = c.fetchone()
+    if not row:
+        return jsonify({"error": "User not found"}), 404
+    
+    new_status = "Blocked" if row['status'] == "Active" else "Active"
+    c.execute("UPDATE users SET status = ? WHERE id = ?", (new_status, id))
+    db.commit()
+    return jsonify({"success": True, "new_status": new_status})
+
+# --- END USER MANAGEMENT API ---
 
 #Run Flask Server
 if __name__ == "__main__":

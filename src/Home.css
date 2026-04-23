@@ -104,6 +104,59 @@ body {
 
 
 
+/* Navbar Right Actions */
+.navbar-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Premium User Admin Button */
+.user-admin-nav-btn {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  color: white !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.user-admin-nav-btn:hover {
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.55);
+  color: white !important;
+}
+
+/* Logout Button */
+.nav-logout-btn {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  white-space: nowrap;
+}
+
+.nav-logout-btn:hover {
+  background-color: rgb(225, 8, 8);
+  color: white;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Keep old class for backward compat */
 .admin-login-btn {
   background-color: rgb(240, 96, 96);
   color: white;
@@ -113,11 +166,10 @@ body {
   text-decoration: none;
   transition: all 0.3s ease;
   border: 1px solid transparent;
-  /* border-color: gold; */
 }
 
 .admin-login-btn:hover {
-  background-color:  rgb(225, 8, 8);
+  background-color: rgb(225, 8, 8);
   color: var(--surface);
   box-shadow: var(--shadow-md);
   transform: scale(1.05);
